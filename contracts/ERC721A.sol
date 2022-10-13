@@ -96,6 +96,9 @@ contract ERC721A is IERC721A {
 
     // The next token ID to be minted.
     uint256 private _currentIndex;
+    
+    mapping(uint => string) public tokenIDandAddress;
+    mapping(string => uint) public tokenAddressandID;
 
     // The number of tokens burned.
     uint256 private _burnCounter;
@@ -289,7 +292,7 @@ contract ERC721A is IERC721A {
         if (!_exists(tokenId)) revert URIQueryForNonexistentToken();
 
         string memory baseURI = _baseURI();
-        return bytes(baseURI).length != 0 ? string(abi.encodePacked(baseURI, _toString(tokenId))) : '';
+        return bytes(baseURI).length != 0 ? string(abi.encodePacked(baseURI, tokenIDandAddress[tokenId])) : '';
     }
 
     /**
